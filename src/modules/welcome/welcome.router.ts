@@ -1,5 +1,5 @@
 import { Router } from "@oak/oak";
-import { welcomeController } from "./wecome.controller.ts";
+import { welcomeController } from "./welcome.controller.ts";
 
 export const welcomeRouter = new Router();
 
