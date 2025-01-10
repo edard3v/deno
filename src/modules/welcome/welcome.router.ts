@@ -3,4 +3,4 @@ import { welcomeController } from "./wecome.controller.ts";
 
 export const welcomeRouter = new Router();
 
-welcomeRouter.get("/", welcomeController);
+welcomeRouter.post("/", welcomeController);
