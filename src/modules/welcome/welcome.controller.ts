@@ -1,7 +1,7 @@
-import { MiddlewareHandler } from "hono/types";
 import { welcomeService } from "./welcome.service.ts";
+import { WelcomeController } from "./welcome.types.ts";
 
-export const welcomeController: MiddlewareHandler = async (context) => {
+export const welcomeController: WelcomeController = async (context) => {
   const id = context.req.param("id");
   const age = context.req.query("age");
   const lenguage = context.req.query("lenguage");
@@ -10,7 +10,7 @@ export const welcomeController: MiddlewareHandler = async (context) => {
   const body = await context.req.json();
 
   const author = context.get("author");
-  const bodyParsed = context.get("body");
+  const bodyParsed = context.req.valid("json");
 
   const msg = await welcomeService();
 
