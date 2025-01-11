@@ -1,17 +1,28 @@
 import { Hono } from "hono";
 import { welcomeController } from "./welcome.controller.ts";
+import { zValidator } from "@hono/zod-validator";
+import { WelcomeBodyDTO, welcomeBodyDTO } from "./welcome.dto.ts";
 
-export const welcomeModule = new Hono();
+export const welcomeModule = new Hono<{ Variables: Variables }>();
 
-welcomeModule.use(async (context, next) => {
-  context.set("author", "edar");
-  await next();
-});
+welcomeModule.post(
+  "/:id",
+  async (context, next) => {
+    context.set("author", "edar");
+    context.set("oe", "askdfsa");
+    await next();
+  },
 
-welcomeModule.post("/:id", welcomeController);
+  zValidator("json", welcomeBodyDTO),
 
-declare module "hono" {
-  interface ContextVariableMap {
-    author: string;
-  }
-}
+  async (context, next) => {
+    const bodyParsed = context.req.valid("json");
+    context.set("body", bodyParsed);
+
+    await next();
+  },
+
+  welcomeController
+);
+
+type Variables = { author: string; body: WelcomeBodyDTO; oe: string };

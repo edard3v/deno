@@ -1,7 +1,7 @@
 import z from "zod";
 
-export const welcomeDTO = z.object({
-  name: z.string(),
+export const welcomeBodyDTO = z.object({
+  oe: z.coerce.number(),
 });
 
-export type WelcomeDTO = z.infer<typeof welcomeDTO>;
+export type WelcomeBodyDTO = z.infer<typeof welcomeBodyDTO>;
