@@ -10,7 +10,7 @@ export const welcomeController: MiddlewareHandler = async (context) => {
   const body = await context.req.json();
 
   const author = context.get("author");
-  const bodyParsed = context.get("");
+  const bodyParsed = context.get("body");
 
   const msg = await welcomeService();
 

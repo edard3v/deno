@@ -9,7 +9,6 @@ welcomeModule.post(
   "/:id",
   async (context, next) => {
     context.set("author", "edar");
-    context.set("oe", "askdfsa");
     await next();
   },
 
@@ -18,11 +17,10 @@ welcomeModule.post(
   async (context, next) => {
     const bodyParsed = context.req.valid("json");
     context.set("body", bodyParsed);
-
     await next();
   },
 
   welcomeController
 );
 
-type Variables = { author: string; body: WelcomeBodyDTO; oe: string };
+type Variables = { author: string; body: WelcomeBodyDTO };
