@@ -1,14 +1,14 @@
 import { Hono } from "hono";
 import { welcomeController } from "./welcome.controller.ts";
 
-export const welcome = new Hono();
+export const welcomeModule = new Hono();
 
-welcome.use(async (context, next) => {
+welcomeModule.use(async (context, next) => {
   context.set("author", "edar");
   await next();
 });
 
-welcome.post("/:id", welcomeController);
+welcomeModule.post("/:id", welcomeController);
 
 declare module "hono" {
   interface ContextVariableMap {
