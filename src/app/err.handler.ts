@@ -1,19 +1,14 @@
-import { Controller } from "../../types.d.ts";
+import { ErrorHandler } from "hono/types";
 import { EdarErr } from "../errors/Edar.err.ts";
 
-export const errHandler: Controller = async (context, next) => {
-  try {
-    await next();
-  } catch (err) {
-    console.error(err);
+export const errHandler: ErrorHandler = (err, context) => {
+  console.error(err);
 
-    if (err instanceof EdarErr) {
-      context.response.status = err.status;
-      context.response.body = { msg: err.msg };
-      return;
-    }
-
-    context.response.status = 500;
-    context.response.body = { msg: "Error interno del servidor" };
+  if (err instanceof EdarErr) {
+    context.status(err.status);
+    return context.json({ msg: err.msg });
   }
+
+  context.status(500);
+  return context.json({ msg: "Error interno del servidor" });
 };

@@ -1,13 +1,9 @@
-import { Middleware } from "@oak/oak";
+import { MiddlewareHandler } from "hono/types";
 import { welcomeService } from "./welcome.service.ts";
 
-export const welcomeController: Middleware = async ({ response, request }) => {
-  const body = await request.body.json();
-  const query = Object.fromEntries(request.url.searchParams.entries());
+export const welcomeController: MiddlewareHandler = async (context) => {
+  const msg = await welcomeService();
 
-  console.log(body);
-  console.log(query);
-
-  const msg = welcomeService();
-  response.body = { msg };
+  context.status(200);
+  return context.json({ msg });
 };

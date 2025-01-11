@@ -1,13 +1,11 @@
-import { Application } from "@oak/oak";
-import { router } from "./router.ts";
+import { Hono } from "hono";
 import { errHandler } from "./err.handler.ts";
-import { route404 } from "./route404.handler.ts";
+import { notFoundHandler } from "./notFound.handler.ts";
+import { welcome } from "../modules/welcome/welcome.module.ts";
 
-export const app = new Application();
+export const app = new Hono();
 
-app.use(errHandler);
+app.route("/", welcome);
 
-app.use(router.routes());
-app.use(router.allowedMethods());
-
-app.use(route404);
+app.notFound(notFoundHandler);
+app.onError(errHandler);
