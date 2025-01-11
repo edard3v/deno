@@ -1,12 +1,8 @@
-export class DtoErr extends Error {
-  status: number;
-  msg: string;
-  constructor(params?: Constructor) {
-    super();
+import { HTTPException } from "hono/http-exception";
+
+export class DtoErr extends HTTPException {
+  constructor() {
+    super(400, { message: "Error de DTO" });
     this.name = "DtoErr";
-    this.msg = params?.msg ?? "Error de DTO";
-    this.status = params?.status ?? 400;
   }
 }
-
-type Constructor = { status?: number; msg: string };

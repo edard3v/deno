@@ -1,10 +1,8 @@
-export class Record404Err extends Error {
-  msg: string;
-  status: number;
+import { HTTPException } from "hono/http-exception";
+
+export class Record404Err extends HTTPException {
   constructor() {
-    super();
-    this.name = "RecordNotFoundErr";
-    this.msg = "Recurso no encontrado.";
-    this.status = 404;
+    super(404, { message: "Recurso no encontrado." });
+    this.name = "Record404Err";
   }
 }

@@ -1,17 +1,8 @@
-export class UnauthorizedErr extends Error {
-  msg: string;
-  status: keyof typeof MSGS;
-  constructor(status?: keyof typeof MSGS) {
-    super();
-    this.name = "UnauthorizedErr";
-    this.status = status || 404;
+import { HTTPException } from "hono/http-exception";
 
-    this.msg = MSGS[this.status];
+export class Unauthorized extends HTTPException {
+  constructor() {
+    super(401, { message: "No autorizado." });
+    this.name = "Unauthorized";
   }
 }
-
-const MSGS = {
-  404: "No autorizado.",
-  401: "Token invalido.",
-  403: "Rol no autorizado.",
-} as const;
