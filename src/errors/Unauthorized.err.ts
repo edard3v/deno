@@ -11,7 +11,7 @@ export class UnauthorizedErr extends Error {
 }
 
 const MSGS = {
-  404: "Necesita autorización.",
-  401: "Token no autorizado.",
+  404: "No autorizado.",
+  401: "Token invalido.",
   403: "Rol no autorizado.",
 } as const;
