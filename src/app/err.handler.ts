@@ -6,7 +6,7 @@ export const errHandler: ErrorHandler = (err, context) => {
 
   if (err instanceof EdarErr) {
     context.status(err.status);
-    return context.json({ msg: err.msg });
+    return context.json({ name: err.name, msg: err.msg });
   }
 
   context.status(500);
